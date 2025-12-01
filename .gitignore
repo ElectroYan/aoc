@@ -1,0 +1,6 @@
+output/**
+input/**
+.env
+**/__pycache__/**
+test.py
+config.json
