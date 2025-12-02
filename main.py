@@ -130,20 +130,26 @@ def main():
             start_time = time.time()
             ans1 = day_instance.p1()
             end_time = time.time()
-            print(f"Level 1 [{(end_time - start_time):.05f}ms]:", ans1)
+            print(f"Level 1 [{((end_time - start_time) * 1000):.05f}ms]:", ans1)
             start_time = time.time()
             ans2 = day_instance.p2()
             end_time = time.time()
             if ans1 and not ans2:
                 sub1 = input("Submit? (y/N): ").lower() == "y"
                 if sub1:
-                    print(submit_answer(aoc_session, str(year), str(day), 1, str(ans1)))
+                    res = submit_answer(aoc_session, str(year), str(day), 1, str(ans1))
+                    print(res)
+                    with open(f"input/{year}-{day}-1.txt", "a") as f:
+                        f.write(f"{ans1}: {res}\n\n")
 
-            print(f"Level 2 [{(end_time - start_time):.05f}ms]:", ans2)
+            print(f"Level 2 [{((end_time - start_time) * 1000):.05f}ms]:", ans2)
             if ans2:
                 sub2 = input("Submit? (y/N): ").lower() == "y"
                 if sub2:
-                    print(submit_answer(aoc_session, str(year), str(day), 2, str(ans2)))
+                    res = submit_answer(aoc_session, str(year), str(day), 2, str(ans2))
+                    print(res)
+                    with open(f"input/{year}-{day}-2.txt", "a") as f:
+                        f.write(f"{ans1}: {res}\n\n")
         except Exception as e:
             print("Error:", e)
 
