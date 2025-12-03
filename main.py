@@ -148,8 +148,8 @@ def main():
                 if sub2:
                     res = submit_answer(aoc_session, str(year), str(day), 2, str(ans2))
                     print(res)
-                    with open(f"input/{year}-{day}-2.txt", "a+") as f:
-                        f.write(f"{ans1}: {res}\n\n")
+                    with open(f"output/{year}-{day}-2.txt", "a+") as f:
+                        f.write(f"{ans2}: {res}\n\n")
         except Exception as e:
             print("Error:", e)
 
