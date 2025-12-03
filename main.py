@@ -139,7 +139,7 @@ def main():
                 if sub1:
                     res = submit_answer(aoc_session, str(year), str(day), 1, str(ans1))
                     print(res)
-                    with open(f"input/{year}-{day}-1.txt", "a+") as f:
+                    with open(f"output/{year}-{day}-1.txt", "a+") as f:
                         f.write(f"{ans1}: {res}\n\n")
 
             print(f"Level 2 [{((end_time - start_time) * 1000):.05f}ms]:", ans2)
