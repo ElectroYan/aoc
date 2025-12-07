@@ -1,7 +1,6 @@
 import os
 import copy
 class Matrix:
-
     def __init__(self, data: list[list[object] | str] = [], height: int = 0, width: int = 0, default:object = 0):
         if data == [] and (height <= 0 or width <= 0):
             raise Exception()
@@ -39,17 +38,32 @@ class Matrix:
             return self.data[h][w]
         return None
 
+    def gv(self, pos: "Vector2d") -> object|None:
+        return self.g(pos.h, pos.w)
+
     def s(self, h: int, w: int, val) -> bool:
         if self.valid(h, w):
             self.data[h][w] = val
             return True
         return False
 
+    def sv(self, pos: "Vector2d", val) -> bool:
+        return self.s(pos.h, pos.w, val)
+
     def valid(self, h: int, w: int):
         return h >= 0 and h < self.height and w >= 0 and w < self.width
 
     def copy(self):
         return Matrix(data=copy.deepcopy(self.data))
+
+    def find(self, func):
+        occurences = []
+        for h in range(self.height):
+            for w in range(self.width):
+                val = self.g(h,w)
+                if func(h, w, val):
+                    occurences.append((h,w,val,))
+        return occurences
 
     def __str__(self, align: bool = True):
         min_size = 1
@@ -65,6 +79,25 @@ class Matrix:
             str_ += os.linesep
         return str_
 
+class Vector2d:
+    def __init__(self, h, w):
+        self.h = h
+        self.w = w
+
+    def copy(self):
+        return Vector2d(self.h, self.w)
+
+    def __add__(self, o: "Vector2d"):
+        return Vector2d(self.h + o.h, self.w + o.w)
+
+    def __str__(self):
+        return str((self.h, self.w,))
+
+    def __eq__(self, value):
+        return self.h == value.h and self.w == value.w
+
+    def __hash__(self):
+        return (self.h, self.w).__hash__()
 
 if __name__ == "__main__":
     m = Matrix(height=3, width=4)
