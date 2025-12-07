@@ -10,25 +10,14 @@ class Day(day.Day):
     def px(self):
         m = Matrix(self.lines)
         beam_positions = {}
-        for i in range(m.width):
-            if m.g(0, i) == "S":
-                beam_positions[i] = 1
-                break
-
         splits = 0
-        for h in range(2, m.height, 2):
+        for h in range(0, m.height, 2):
             for w in range(m.width):
-                if m.g(h,w) == "^" and w in beam_positions:
+                if m.g(h, w) == "S":
+                    beam_positions[w] = 1
+                elif m.g(h,w) == "^" and w in beam_positions:
                     multiplicity = beam_positions.pop(w)
-                    # never 2 directly next to each other
-                    # so no need for a temp buffer
-                    if w-1 in beam_positions:
-                        beam_positions[w-1] += multiplicity
-                    else:
-                        beam_positions[w-1] = multiplicity
-                    if w+1 in beam_positions:
-                        beam_positions[w+1] += multiplicity
-                    else:
-                        beam_positions[w+1] = multiplicity
+                    beam_positions[w-1] = multiplicity + beam_positions.get(w-1, 0)
+                    beam_positions[w+1] = multiplicity + beam_positions.get(w+1, 0)
                     splits += 1
         return [splits, sum(beam_positions.values())]
