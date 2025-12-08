@@ -20,7 +20,7 @@ class Day(day.Day):
         cluster_count = 0
         last1 = None
         last2 = None
-        for dis, v1, v2 in distances[:1000]:
+        for dis, v1, v2 in distances[:(self.is_test and 10 or 1000)]:
             passed = False
             if v1 in clusters and v2 in clusters:
                 if clusters[v1] == clusters[v2]:

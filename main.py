@@ -120,7 +120,7 @@ def main():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
 
-    day_instance = module.Day(input_data)
+    day_instance = module.Day(input_data, use_test_data != "n")
 
     if use_test_data != "n":
         print("Level 1 (test):", day_instance.p1())
