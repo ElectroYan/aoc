@@ -1,5 +1,6 @@
 import os
 import copy
+import math
 class Matrix:
     def __init__(self, data: list[list[object] | str] = [], height: int = 0, width: int = 0, default:object = 0):
         if data == [] and (height <= 0 or width <= 0):
@@ -98,6 +99,37 @@ class Vector2d:
 
     def __hash__(self):
         return (self.h, self.w).__hash__()
+
+class Vector3d:
+    def __init__(self, h, w, d):
+        self.h = h
+        self.w = w
+        self.d = d
+
+    def euclid(self, o: "Vector3d") -> int:
+        sub_h = self.h - o.h
+        sub_w = self.w - o.w
+        sub_d = self.d - o.d
+        return math.sqrt(sub_h * sub_h + sub_w * sub_w + sub_d * sub_d)
+
+
+    def copy(self):
+        return Vector3d(self.h, self.w, self.d)
+
+    def __add__(self, o: "Vector3d"):
+        return Vector3d(self.h + o.h, self.w + o.w, self.d + o.d)
+
+    def __str__(self):
+        return str((self.h, self.w, self.d,))
+
+    def __eq__(self, value):
+        return self.h == value.h and self.w == value.w and self.d == value.d
+
+    def __hash__(self):
+        return (self.h, self.w, self.d).__hash__()
+
+    def __repr__(self):
+        return self.__str__()
 
 if __name__ == "__main__":
     m = Matrix(height=3, width=4)
