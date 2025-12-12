@@ -48,6 +48,25 @@ class Matrix:
             return True
         return False
 
+    def place(self, h: int, w: int, val: "Matrix", rule = None) -> bool:
+        if not self.valid(h, w) or not self.valid(h + val.height - 1, w + val.width - 1):
+            return False
+        ok = True
+        for hi in range(val.height):
+            for wi in range(val.width):
+                v = val.g(hi, wi)
+                if rule is None or rule(self.g(h + hi, w + wi), v):
+                    pass
+                else:
+                    ok = False
+        if not ok:
+            return False
+        for hi in range(val.height):
+            for wi in range(val.width):
+                v = val.g(hi, wi)
+                self.s(h + hi, w + wi, v)
+        return None
+
     def sv(self, pos: "Vector2d", val) -> bool:
         return self.s(pos.h, pos.w, val)
 
